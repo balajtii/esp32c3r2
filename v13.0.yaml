@@ -18,7 +18,7 @@ substitutions:
 
   # https://esphome.io/components/esphome.html#esphome-creators-project
   project_name: "SMTPlus.esp32c3-R2"
-  project_ver_num: "20230718.1809"
+  project_ver_num: "20230718.1810"
 
   
 esphome:
