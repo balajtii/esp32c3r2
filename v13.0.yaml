@@ -1,0 +1,303 @@
+# https://esphome.io/guides/configuration-types.html#substitutions
+substitutions:
+
+  # substitutions can be changed here if you are using this file directly in the ESPHome dashboard.  The better approach is
+  # to incorporate this file as a package using the following packages: configuration, and then overwrite these substitutions
+  # in your local yaml file by redefining them.
+  #
+  # packages:
+  #   kauf.rgbsw: github://KaufHA/kauf-rgb-switch/kauf-rgbs.yaml
+  #
+
+
+  # CHANGE DEVICE NAME TO SOMETHING UNIQUE PER DEVICE.  RENAME YAML FILE TO SAME NAME. USE DASHES (-) INSTEAD OF SPACES OR UNDERSCORE (_).  USE ONLY LOWER CASE LETTERS.
+  name: esp32c3-r2
+  
+  friendly_name: ESP32C3 R2
+  comment: ESPHOME firmware for ESP32C3 R2 model from SMTplus Kft.
+
+  # https://esphome.io/components/esphome.html#esphome-creators-project
+  project_name: "SMTPlus.esp32c3-R2"
+  project_ver_num: "13.0"
+
+  
+esphome:
+  name: $name
+  comment: $comment
+  friendly_name: $friendly_name
+  name_add_mac_suffix: true
+
+  project: 
+    name: $project_name
+    version: $project_ver_num
+
+  min_version: 2023.6.1
+
+#  Lassú proci
+#  platformio_options:
+#    board_build.flash_mode: dio
+#    board_build.f_cpu: 80000000L
+
+  on_boot:
+    priority: 900
+    then:
+       lambda: |-
+        // id(wake_up_reason) = esp_sleep_get_wakeup_cause();
+        id(cpu_speed) = ESP.getCpuFreqMHz() ;
+
+
+# This should point to the public location of this yaml file.
+dashboard_import:
+  package_import_url: "http://smtplus.hu/firmware/esp32c3r2/v13.0.yaml"
+  import_full_config: false # or true
+
+globals:
+   - id: cpu_speed
+     type: int
+     restore_value: no
+     initial_value: '0'
+
+external_components:
+  # - source: github://screek-workshop/custom_components_support_for_screek_1u
+#  - source:
+#      type: git
+#      url: https://github.com/screek-workshop/custom_components_support_for_screek_1u
+#      ref: master
+    # components: [ ld2410, uart ]
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+#  encryption:
+#    key: "qZtMdp9CPTrtwTy/IpI9sKD+lno6aPNfsG9HS7ksTeI="
+
+ota:
+#  password: "8b1fe83a81be6fedf1a87c6acf90c3cf"
+
+wifi:
+  # power_save_mode: NONE
+  output_power: 15dB
+  power_save_mode: LIGHT
+  reboot_timeout: 10min
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Esp32C3-9K1-Prodtest"
+#    password: "XD4f51dwxYmL"
+
+
+
+
+# In combination with the `ap` this allows the user
+# to provision wifi credentials to the device.
+captive_portal:
+
+# Sets up Bluetooth LE (Only on ESP32) to allow the user
+# to provision wifi credentials to the device.
+esp32_improv:
+  authorizer: none
+
+# Sets up the improv via serial client for Wi-Fi provisioning
+improv_serial:
+#  next_url: https://example.com/project-template/manual?ip={{ip_address}}&name={{device_name}}&version={{esphome_version}}
+
+
+web_server:
+  port: 80
+
+
+
+#interval:
+
+# OTA update safe mode automatically
+#  - interval: 60s
+#    then:
+#      - if:
+#          condition:
+#            wifi.connected:
+#            #api.connected: 
+#          then:
+#            - lambda: |-
+#                ESP_LOGI("watchdog", "wifi.connected");  
+#          else:
+#            - lambda: |-
+#                ESP_LOGW("watchdog", "considering safe_mode");              
+#            - delay: 60s
+#            - if:
+#                condition:
+#                  #api.connected: 
+#                  wifi.connected:
+#                then:
+#                  - lambda: |-
+#                      ESP_LOGI("watchdog", "wifi.connected");  
+#                else:
+#                  - lambda: |-                  
+#                      ESP_LOGE("watchdog", "entering safe_mode");                                
+#                  - button.press: safe_mode_wifi
+
+
+# Example configuration entry
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: ESP IP Address
+    ssid:
+      name: ESP Connected SSID
+    bssid:
+      name: ESP Connected BSSID
+    mac_address:
+      name: ESP Mac Wifi Address
+#    scan_results:
+#      name: ESP Latest Scan Results
+
+binary_sensor:
+  - platform: status
+    name: HA Connected
+    id: ink_ha_connected
+#  - platform: ld2410
+#    has_target:
+#      name: Presence
+#    has_moving_target:
+#      name: Moving Target
+#    has_still_target:
+#      name: Still Target
+
+sensor:
+  - platform: template
+    name: "ESP Cpu Speed"
+    accuracy_decimals: 0
+    unit_of_measurement: Mhz
+    lambda: |-
+      return (id(cpu_speed));
+    entity_category: "diagnostic"
+
+  # - platform: internal_temperature
+  #   id: sys_esp_temperature
+  #   name: ESP Temperature
+  #   unit_of_measurement: °C
+  #   device_class: TEMPERATURE
+  #   update_interval: 1s
+  #   entity_category: "diagnostic"
+
+  - platform: template
+    id: sys_esp_temperature
+    name: ESP Temperature
+    lambda: return temperatureRead();
+    unit_of_measurement: °C
+    device_class: TEMPERATURE
+    update_interval: 30s
+    entity_category: "diagnostic"
+
+  - platform: uptime
+    name: Uptime
+    id: sys_uptime
+    update_interval: 60s
+
+  - platform: wifi_signal 
+    name: RSSI
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+
+  - platform: template
+    id: esp_memory
+    icon: mdi:memory
+    name: ESP Free Memory
+    lambda: return heap_caps_get_free_size(MALLOC_CAP_INTERNAL) / 1024;
+    unit_of_measurement: 'kB'
+    state_class: measurement
+    entity_category: "diagnostic"
+    update_interval: 60s
+
+#  - platform: ld2410
+#    moving_distance:
+#      name : Moving Distance
+#      id: moving_distance
+#    still_distance:
+#      name: Still Distance
+#      id: still_distance
+#    moving_energy:
+#      name: Move Energy
+#    still_energy:
+#      name: Still Energy
+#    detection_distance:
+#      name: Detection Distance
+#    light:
+#      name: Sun Light
+
+light:
+  - platform: status_led
+    name: sys_status
+    pin: GPIO18
+    internal: True
+    restore_mode: ALWAYS_OFF
+
+time:
+  - platform: sntp
+    id: time_sntp
+
+#uart:
+#  id: uart_ld2410
+#  tx_pin: GPIO18
+#  rx_pin: GPIO33
+#  baud_rate: 256000
+#  parity: NONE
+#  stop_bits: 1
+
+#ld2410:
+#  timeout: 150s
+#  id: ld2410_radar
+
+button:
+#  - platform: template
+#    name: "Enable LD2410 BLE"
+#    # disabled_by_default: True
+#    entity_category: "config"
+#    icon: mdi:bluetooth
+#    on_press:
+#      lambda: |-
+#        id(ld2410_radar) -> ble_control(true);
+#
+#  - platform: template
+#    name: "Disable LD2410 BLE"
+#    # disabled_by_default: True
+#    entity_category: "config"
+#    icon: mdi:bluetooth-off
+#    on_press:
+#      lambda: |-
+#        id(ld2410_radar) -> ble_control(false);
+#
+#  - platform: template
+#    name: "LD2410 Reboot"
+#    icon: mdi:radar
+#    entity_category: "config"
+#    on_press:
+#      lambda: |-
+#        // auto* radar = LD2410Component::get(ld2410); 
+#        // radar -> roboot();
+#        id(ld2410_radar) -> reboot();
+
+  - platform: restart
+    icon: mdi:power-cycle
+    name: "ESP Reboot"
+
+  - platform: factory_reset
+    disabled_by_default: True
+    name: Factory Reset
+    id: factory_reset_all
+
+  - platform: safe_mode
+    name: Safe Mode
+    id: safe_mode_wifi
+    icon: mdi:restart-alert
+    device_class: restart
+    entity_category: diagnostic
+    disabled_by_default: true
+
