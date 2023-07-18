@@ -11,27 +11,27 @@ substitutions:
 
 
   # CHANGE DEVICE NAME TO SOMETHING UNIQUE PER DEVICE.  RENAME YAML FILE TO SAME NAME. USE DASHES (-) INSTEAD OF SPACES OR UNDERSCORE (_).  USE ONLY LOWER CASE LETTERS.
-  name: esp32c3-r2
+  name: "esp32c3-r2"
   
-  friendly_name: ESP32C3 R2
-  comment: ESPHOME firmware for ESP32C3 R2 model from SMTplus Kft.
+  friendly_name: "ESP32C3 R2"
+  comment: "ESPHOME firmware for ESP32C3 R2 model from SMTplus Kft."
 
   # https://esphome.io/components/esphome.html#esphome-creators-project
   project_name: "SMTPlus.esp32c3-R2"
-  project_ver_num: "13.0"
+  project_ver_num: "20230718.1640"
 
   
 esphome:
-  name: $name
-  comment: $comment
-  friendly_name: $friendly_name
+  name: "$name"
+  comment: "$comment"
+  friendly_name: "$friendly_name"
   name_add_mac_suffix: true
 
   project: 
-    name: $project_name
-    version: $project_ver_num
+    name: "$project_name"
+    version: "$project_ver_num"
 
-  min_version: 2023.6.1
+  min_version: "2023.6.1"
 
 #  Lassú proci
 #  platformio_options:
@@ -66,9 +66,9 @@ external_components:
     # components: [ ld2410, uart ]
 
 esp32:
-  board: esp32-c3-devkitm-1
+  board: "esp32-c3-devkitm-1"
   framework:
-    type: arduino
+    type: "arduino"
 
 # Enable logging
 logger:
@@ -89,7 +89,7 @@ wifi:
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
-    ssid: "Esp32C3-9K1-Prodtest"
+    ssid: "$friendly_name"
 #    password: "XD4f51dwxYmL"
 
 
