@@ -18,7 +18,7 @@ substitutions:
 
   # https://esphome.io/components/esphome.html#esphome-creators-project
   project_name: "SMTPlus.esp32c3-R2"
-  project_ver_num: "20230718.1733"
+  project_ver_num: "20230718.1809"
 
   
 esphome:
@@ -83,9 +83,9 @@ ota:
 
 wifi:
   # power_save_mode: NONE
-  output_power: 15dB
-  power_save_mode: LIGHT
-  reboot_timeout: 10min
+#  output_power: 15dB
+#  power_save_mode: LIGHT
+#  reboot_timeout: 10min
 
   # Enable fallback hotspot (captive portal) in case wifi connection fails
   ap:
