@@ -193,13 +193,13 @@ binary_sensor:
     on_press:
         then:
           - lambda: |-
-              if (id(ink_ha_connected)) {
+              if (id(ink_ha_connected).state) {
                 id(output2).toggle();
               }
     on_release:
         then:
           - lambda: |-
-              if (id(ink_ha_connected)) {
+              if (id(ink_ha_connected).state) {
                 if (id(input1_pushbutton).state) {
                   id(output2).toggle();
                 }
@@ -365,38 +365,41 @@ switch:
     id: "output2"
     pin: GPIO5
 
+  - platform: template
+    name: "Input1 failsafe?"
+    id: "input1_failsafe"
+    restore_mode: RESTORE_DEFAULT_ON
+    optimistic: true
+
+  - platform: template
+    name: "Input2 failsafe?"
+    id: "input2_failsafe"
+    restore_mode: RESTORE_DEFAULT_ON
+    optimistic: true
+
+  - platform: template
+    name: "Input1 detached?"
+    id: "input1_detached"
+    restore_mode: RESTORE_DEFAULT_ON
+    optimistic: true
+
+  - platform: template
+    name: "Input2 detached?"
+    id: "input2_detached"
+    restore_mode: RESTORE_DEFAULT_ON
+    optimistic: true
 
   - platform: template
     name: "Input1 pushbutton?"
     id: "input1_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON 
     optimistic: true
-#    lambda: |-
-#      if (id(some_binary_sensor).state) {
-#        return true;
-#      } else {
-#        return false;
-#      }
-#    turn_on_action:
-#      - switch.turn_on: switch2
-#    turn_off_action:
-#      - switch.turn_on: switch1
 
   - platform: template
     name: "Input2 pushbutton?"
     id: "input2_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-#    lambda: |-
-#      if (id(some_binary_sensor).state) {
-#        return true;
-#      } else {
-#        return false;
-#      }
-#    turn_on_action:
-#      - switch.turn_on: switch2
-#    turn_off_action:
-#      - switch.turn_on: switch1
 
 
 
