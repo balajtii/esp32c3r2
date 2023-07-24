@@ -51,6 +51,13 @@ dashboard_import:
   package_import_url: "github://balajtii/esp32c3r2/v13.0.yaml@main"
   import_full_config: false # or true
 
+packages:
+  SMTPlus.esp32c3-R2:
+    url: github://balajtii/esp32c3r2/v13.0.yaml
+    ref: main
+    refresh: 60s
+
+
 globals:
    - id: cpu_speed
      type: int
