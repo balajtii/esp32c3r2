@@ -53,8 +53,9 @@ dashboard_import:
 
 packages:
   SMTPlus.esp32c3-R2:
-    url: github://balajtii/esp32c3r2/v13.0.yaml
+    url: github://balajtii/esp32c3r2
     ref: main
+    files: [v13.0.yaml]
     refresh: 60s
 
 
