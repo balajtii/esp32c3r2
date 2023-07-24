@@ -340,7 +340,33 @@ switch:
     pin: GPIO5
 
 
+  - platform: template
+    name: "Input1 pushbutton?"
+    id: "input1_pushbutton"
+    lambda: |-
+      if (id(some_binary_sensor).state) {
+        return true;
+      } else {
+        return false;
+      }
+#    turn_on_action:
+#      - switch.turn_on: switch2
+#    turn_off_action:
+#      - switch.turn_on: switch1
 
+  - platform: template
+    name: "Input2 pushbutton?"
+    id: "input2_pushbutton"
+    lambda: |-
+      if (id(some_binary_sensor).state) {
+        return true;
+      } else {
+        return false;
+      }
+#    turn_on_action:
+#      - switch.turn_on: switch2
+#    turn_off_action:
+#      - switch.turn_on: switch1
 
 
 
