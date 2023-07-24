@@ -174,7 +174,7 @@ binary_sensor:
       number: GPIO0
       mode:
         input: true
-    name: "input1"
+    name: "Input1 state"
     id: "input1"
     on_press:
       then:
@@ -185,7 +185,7 @@ binary_sensor:
       number: GPIO1
       mode:
         input: true
-    name: "input2"
+    name: "Input2 state"
     id: "input2"
     on_press:
         then:
@@ -331,11 +331,11 @@ button:
 
 switch:
   - platform: gpio
-    name: "output1"
+    name: "Output1"
     id: "output1"
     pin: GPIO4
   - platform: gpio
-    name: "output2"
+    name: "Output2"
     id: "output2"
     pin: GPIO5
 
