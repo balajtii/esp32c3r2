@@ -345,12 +345,12 @@ switch:
     id: "input1_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON 
     optimistic: true
-    lambda: |-
-      if (id(some_binary_sensor).state) {
-        return true;
-      } else {
-        return false;
-      }
+#    lambda: |-
+#      if (id(some_binary_sensor).state) {
+#        return true;
+#      } else {
+#        return false;
+#      }
 #    turn_on_action:
 #      - switch.turn_on: switch2
 #    turn_off_action:
@@ -361,12 +361,12 @@ switch:
     id: "input2_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-    lambda: |-
-      if (id(some_binary_sensor).state) {
-        return true;
-      } else {
-        return false;
-      }
+#    lambda: |-
+#      if (id(some_binary_sensor).state) {
+#        return true;
+#      } else {
+#        return false;
+#      }
 #    turn_on_action:
 #      - switch.turn_on: switch2
 #    turn_off_action:
