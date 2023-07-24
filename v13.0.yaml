@@ -50,7 +50,6 @@ esphome:
 dashboard_import:
   package_import_url: "github://balajtii/esp32c3r2/v13.0.yaml@main"
   import_full_config: false # or true
-  refresh: 60s
 
 globals:
    - id: cpu_speed
