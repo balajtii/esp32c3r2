@@ -344,6 +344,7 @@ switch:
     name: "Input1 pushbutton?"
     id: "input1_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON 
+    optimistic: true
     lambda: |-
       if (id(some_binary_sensor).state) {
         return true;
@@ -358,7 +359,8 @@ switch:
   - platform: template
     name: "Input2 pushbutton?"
     id: "input2_pushbutton"
-    restore_mode: RESTORE_DEFAULT_ON 
+    restore_mode: RESTORE_DEFAULT_ON
+    optimistic: true
     lambda: |-
       if (id(some_binary_sensor).state) {
         return true;
