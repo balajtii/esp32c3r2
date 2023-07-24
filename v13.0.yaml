@@ -177,11 +177,16 @@ binary_sensor:
     name: "input1"
     id: "input1"
     on_press:
-        then:
-          - lambda: |-
-              if (!id(ink_ha_connected)) {
+      - if:
+          condition:
+            api.connected: 
+          then:
+            - lambda: |-
+                ESP_LOGI("smtplus", "input1.on_press");
+          else:
+            - lambda: |-
                 id(output1).toggle();
-              }
+                
   - platform: gpio
     pin:
       number: GPIO1
