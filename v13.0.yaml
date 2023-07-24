@@ -58,7 +58,7 @@ globals:
      initial_value: '0'
 
 external_components:
-  refresh: 60
+  refresh: 60s
   # - source: github://screek-workshop/custom_components_support_for_screek_1u
 #  - source:
 #      type: git
