@@ -52,12 +52,12 @@ dashboard_import:
   package_import_url: "github://balajtii/esp32c3r2/v13.0.yaml@main"
   import_full_config: false # or true
 
-packages:
-  SMTPlus.esp32c3-R2:
-    url: https://github.com/balajtii/esp32c3r2
-    ref: main
-    files: [v13.0.yaml]
-    refresh: 60s
+# packages:
+#   SMTPlus.esp32c3-R2:
+#     url: https://github.com/balajtii/esp32c3r2
+#     ref: main
+#     files: [v13.0.yaml]
+#     refresh: 60s
 
 
 
