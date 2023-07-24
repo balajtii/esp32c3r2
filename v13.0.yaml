@@ -200,7 +200,7 @@ binary_sensor:
         then:
           - lambda: |-
               if (id(ink_ha_connected)) {
-                if (id(input1_pushbutton)) {
+                if (id(input1_pushbutton).state) {
                   id(output2).toggle();
                 }
               }
