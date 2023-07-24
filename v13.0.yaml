@@ -58,6 +58,7 @@ globals:
      initial_value: '0'
 
 external_components:
+  refresh: 60
   # - source: github://screek-workshop/custom_components_support_for_screek_1u
 #  - source:
 #      type: git
@@ -176,9 +177,22 @@ binary_sensor:
         input: true
     name: "Input1 state"
     id: "input1"
+#    on_press:
+#      then:
+#        - switch.toggle: output1
     on_press:
-      then:
-        - switch.toggle: output1
+        then:
+          - lambda: |-
+              if (id(ink_ha_connected)) {
+                id(output2).toggle();
+              }
+    on_press:
+        then:
+          - lambda: |-
+              if (id(ink_ha_connected)) {
+                id(output2).toggle();
+              }
+
                 
   - platform: gpio
     pin:
