@@ -197,7 +197,7 @@ binary_sensor:
         then:
           - lambda: |-
               if ( !id(input1_detached).state || ( id(input1_failsafe).state && !id(ink_ha_connected).state ) ) {
-                if (id(input1_pushbutton).state) {
+                if (!id(input1_pushbutton).state) {
                   id(output1).toggle();
                 }
               }
@@ -213,14 +213,14 @@ binary_sensor:
     on_press:
         then:
           - lambda: |-
-              if ( id(input2_detached).state || ( id(input2_failsafe).state && !id(ink_ha_connected).state ) ) {
+              if ( !id(input2_detached).state || ( id(input2_failsafe).state && !id(ink_ha_connected).state ) ) {
                 id(output2).toggle();
               }
     on_release:
         then:
           - lambda: |-
-              if ( id(input2_detached).state || ( id(input2_failsafe).state && !id(ink_ha_connected).state ) ) {
-                if (id(input2_pushbutton).state) {
+              if ( !id(input2_detached).state || ( id(input2_failsafe).state && !id(ink_ha_connected).state ) ) {
+                if (!id(input2_pushbutton).state) {
                   id(output2).toggle();
                 }
               }
