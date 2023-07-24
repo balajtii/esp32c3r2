@@ -58,7 +58,7 @@ globals:
      initial_value: '0'
 
 external_components:
-#  refresh: 60s
+  refresh: 60s
   # - source: github://screek-workshop/custom_components_support_for_screek_1u
 #  - source:
 #      type: git
@@ -186,11 +186,13 @@ binary_sensor:
               if (id(ink_ha_connected)) {
                 id(output2).toggle();
               }
-    on_press:
+    on_release:
         then:
           - lambda: |-
               if (id(ink_ha_connected)) {
-                id(output2).toggle();
+                if (id(input1_pushbutton)) {
+                  id(output2).toggle();
+                }
               }
 
                 
