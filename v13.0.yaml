@@ -169,6 +169,19 @@ binary_sensor:
 #    has_still_target:
 #      name: Still Target
 
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+    name: "input1"
+  - platform: gpio
+    pin:
+      number: GPIO1
+      mode:
+        input: true
+    name: "input2"
+
 sensor:
   - platform: template
     name: "ESP Cpu Speed"
@@ -301,3 +314,36 @@ button:
     entity_category: diagnostic
     disabled_by_default: true
 
+
+
+
+switch:
+  - platform: gpio
+    name: "output1"
+    id: "output1"
+    pin: GPIO4
+  - platform: gpio
+    name: "output2"
+    id: "output2"
+    pin: GPIO5
+
+
+
+
+
+
+
+
+
+    on_press:
+        then:
+            # store press time in ms
+          - lambda: |-
+              // store time of press and clear duration sensor
+              id(global_press_time) = millis();
+              id(sensor_press_duration).publish_state(0);
+
+              // toggle if button is configured to toggle on press
+              if (id(select_button).state == "Toggle on Press") {
+                id(ui_switch).toggle(); }
+          - script.execute: $sub_on_press
