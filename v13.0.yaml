@@ -180,11 +180,8 @@ binary_sensor:
 #    has_still_target:
 #      name: Still Target
 
-  - platform: gpio
-    pin:
-      number: GPIO0
-      mode:
-        input: true
+
+  - platform: template
     name: "Input1 state"
     id: "input1"
     on_press:
@@ -202,12 +199,7 @@ binary_sensor:
                 }
               }
 
-                
-  - platform: gpio
-    pin:
-      number: GPIO1
-      mode:
-        input: true
+  - platform: template
     name: "Input2 state"
     id: "input2"
     on_press:
@@ -224,6 +216,42 @@ binary_sensor:
                   id(output2).toggle();
                 }
               }
+
+
+
+
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode:
+        input: true
+    id: "input1_real"
+    internal: True
+    on_press:
+        then:
+          - lambda: |-
+              id(input1).turn_on();
+    on_release:
+        then:
+          - lambda: |-
+              id(input1).turn_off();
+
+                
+  - platform: gpio
+    pin:
+      number: GPIO1
+      mode:
+        input: true
+    id: "input2_real"
+    internal: True
+    on_press:
+        then:
+          - lambda: |-
+              id(input2).turn_on();
+    on_release:
+        then:
+          - lambda: |-
+              id(input2).turn_off();
               
 sensor:
   - platform: template
@@ -406,6 +434,11 @@ switch:
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
 
+  - platform: template
+    name: "Swap Inputs"
+    id: "input_swap"
+    restore_mode: RESTORE_DEFAULT_OFF
+    optimistic: true
 
 
 
