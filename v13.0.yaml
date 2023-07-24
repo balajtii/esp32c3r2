@@ -190,7 +190,7 @@ binary_sensor:
     on_press:
         then:
           - lambda: |-
-              if (!id(ink_ha_connected)) {
+              if (id(ink_ha_connected)) {
                 id(output2).toggle();
               }
               
