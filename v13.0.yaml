@@ -50,6 +50,7 @@ esphome:
 dashboard_import:
   package_import_url: "github://balajtii/esp32c3r2/v13.0.yaml@main"
   import_full_config: false # or true
+  refresh: 60s
 
 globals:
    - id: cpu_speed
@@ -58,7 +59,7 @@ globals:
      initial_value: '0'
 
 external_components:
-  refresh: 60s
+#  refresh: 60s
   # - source: github://screek-workshop/custom_components_support_for_screek_1u
 #  - source:
 #      type: git
