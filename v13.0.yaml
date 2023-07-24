@@ -177,8 +177,8 @@ binary_sensor:
     name: "input1"
     id: "input1"
     on_press:
-      - lambda: |-
-          id(output1).toggle();
+      then:
+        - switch.toggle: output1
                 
   - platform: gpio
     pin:
