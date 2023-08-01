@@ -1,5 +1,6 @@
-# https://esphome.io/guides/configuration-types.html#substitutions
-substitutions:
+###########################################################################################
+substitutions:  ###########################################################################
+###########################################################################################
 
   # substitutions can be changed here if you are using this file directly in the ESPHome dashboard.  The better approach is
   # to incorporate this file as a package using the following packages: configuration, and then overwrite these substitutions
@@ -8,7 +9,6 @@ substitutions:
   # packages:
   #   kauf.rgbsw: github://KaufHA/kauf-rgb-switch/kauf-rgbs.yaml
   #
-
 
   # CHANGE DEVICE NAME TO SOMETHING UNIQUE PER DEVICE.  RENAME YAML FILE TO SAME NAME. USE DASHES (-) INSTEAD OF SPACES OR UNDERSCORE (_).  USE ONLY LOWER CASE LETTERS.
   name: "esp32c3-r2"
@@ -19,9 +19,10 @@ substitutions:
   # https://esphome.io/components/esphome.html#esphome-creators-project
   project_name: "SMTPlus.esp32c3-R2"
   project_ver_num: "20230801.0914"
-
   
-esphome:
+###########################################################################################
+esphome:  #################################################################################
+###########################################################################################
   name: "$name"
   comment: "$comment"
   friendly_name: "$friendly_name"
@@ -45,20 +46,20 @@ esphome:
         // id(wake_up_reason) = esp_sleep_get_wakeup_cause();
         id(cpu_speed) = ESP.getCpuFreqMHz() ;
 
-
-
-# This should point to the public location of this yaml file.
-dashboard_import:
+###########################################################################################
+dashboard_import:  ########################################################################
+###########################################################################################
   package_import_url: "github://balajtii/esp32c3r2/v13.0.yaml@main"
   import_full_config: false # or true
 
-# packages:
+###########################################################################################
+# packages:  ##############################################################################
+###########################################################################################
 #   SMTPlus.esp32c3-R2:
 #     url: https://github.com/balajtii/esp32c3r2
 #     ref: main
 #     files: [v13.0.yaml]
 #     refresh: 60s
-
 
 ###########################################################################################
 globals:  #################################################################################
@@ -80,7 +81,7 @@ external_components:  ##########################################################
     # components: [ ld2410, uart ]
 
 ###########################################################################################
-esp32:
+esp32:  ###################################################################################
 ###########################################################################################
   board: "esp32-c3-devkitm-1"
   framework:
@@ -311,7 +312,9 @@ time:
   - platform: sntp
     id: time_sntp
 
-#uart:
+###########################################################################################
+#uart:  ###################################################################################
+###########################################################################################
 #  id: uart_ld2410
 #  tx_pin: GPIO18
 #  rx_pin: GPIO33
@@ -319,11 +322,9 @@ time:
 #  parity: NONE
 #  stop_bits: 1
 
-#ld2410:
-#  timeout: 150s
-#  id: ld2410_radar
-
-button:
+###########################################################################################
+button:  ##################################################################################
+###########################################################################################
 #  - platform: template
 #    name: "Enable LD2410 BLE"
 #    # disabled_by_default: True
@@ -332,7 +333,7 @@ button:
 #    on_press:
 #      lambda: |-
 #        id(ld2410_radar) -> ble_control(true);
-#
+###########################################################################################
 #  - platform: template
 #    name: "Disable LD2410 BLE"
 #    # disabled_by_default: True
@@ -341,7 +342,7 @@ button:
 #    on_press:
 #      lambda: |-
 #        id(ld2410_radar) -> ble_control(false);
-#
+###########################################################################################
 #  - platform: template
 #    name: "LD2410 Reboot"
 #    icon: mdi:radar
@@ -351,16 +352,16 @@ button:
 #        // auto* radar = LD2410Component::get(ld2410); 
 #        // radar -> roboot();
 #        id(ld2410_radar) -> reboot();
-
+###########################################################################################
   - platform: restart
     icon: mdi:power-cycle
     name: "ESP Reboot"
-
+###########################################################################################
   - platform: factory_reset
     disabled_by_default: True
     name: Factory Reset
     id: factory_reset_all
-
+###########################################################################################
   - platform: safe_mode
     name: Safe Mode
     id: safe_mode_wifi
@@ -369,55 +370,55 @@ button:
     entity_category: diagnostic
     disabled_by_default: true
 
-
-
-
-switch:
+###########################################################################################
+switch:  ##################################################################################
+###########################################################################################
   - platform: gpio
     name: "Output1"
     id: "output1"
     pin: GPIO4
+###########################################################################################
   - platform: gpio
     name: "Output2"
     id: "output2"
     pin: GPIO5
-
+###########################################################################################
   - platform: template
     name: "Input1 failsafe?"
     id: "input1_failsafe"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-
+###########################################################################################
   - platform: template
     name: "Input2 failsafe?"
     id: "input2_failsafe"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-
+###########################################################################################
   - platform: template
     name: "Input1 detached?"
     id: "input1_detached"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-
+###########################################################################################
   - platform: template
     name: "Input2 detached?"
     id: "input2_detached"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-
+###########################################################################################
   - platform: template
     name: "Input1 pushbutton?"
     id: "input1_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON 
     optimistic: true
-
+###########################################################################################
   - platform: template
     name: "Input2 pushbutton?"
     id: "input2_pushbutton"
     restore_mode: RESTORE_DEFAULT_ON
     optimistic: true
-
+###########################################################################################
   - platform: template
     name: "Swap detached relays?"
     id: "relay_swap"
